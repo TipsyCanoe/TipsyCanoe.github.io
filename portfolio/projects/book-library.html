@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library Classifier | Richard</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="../index.html" class="logo">R</a>
+            <ul>
+                <li><a href="../index.html">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <article class="project-page">
+        <header>
+            <h1>Book Library Classifier</h1>
+            <p class="project-tagline">AI-powered personal library mannagament system</p>
+            <div class="project-links">
+                <a href="https://github.com/TipsyCanoe/AI-book-classifier" class="btn" target="_blank">GitHub</a>
+                <!-- <a href="#" class="btn btn-outline">Live Demo</a> --> 
+            </div>
+        </header>
+
+        <section class="project-overview">
+            <p>A full-stack application that catalogs personal book collections with automatic genre classification. Built to solve the problem of organizing a mixed library of novels, manga, textbooks, and more.</p>
+            <p>The system uses Groq's Llama 3.3 70B model combined with Google Books API metadata to accurately classify books into predefined genres, then stores everything in a PostgreSQL database with a React frontend for browsing and management.</p>   
+        </section>
+
+        <section class="project-features">
+            <h2>Features</h2>
+            <ul>
+                <li><strong>AI Classification</strong> — Automatic genre detection using LLM with Google Books descriptions for context</li>
+                <li><strong>Batch Processing</strong> — CSV import for bulk library cataloging with rate limiting</li>
+                <li><strong>Series Caching</strong> — Books in the same series get consistent classification</li>
+                <li><strong>Read/Unread Tracking</strong> — Track reading progress across your collection</li>
+                <li><strong>Genre Filtering</strong> — Filter and sort by genre, author, read status</li>
+                <li><strong>Manual Override</strong> — Edit genres and metadata via the UI when AI gets it wrong</li>
+            </ul>
+        </section>
+
+        <section class="project-technology">
+            <h2>Tech Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>React 18</li>
+                        <li>Vite</li>
+                        <li>CSS (custom, no framework)</li>
+                    </ul>
+                </div>
+                <div class="tech-item">
+                    <h3>Backend</h3>
+                    <ul>
+                        <li>Python / Flask</li>
+                        <li>PostgreSQL</li>
+                        <li>RESTful API</li>
+                    </ul>
+                </div>
+                <div class="tech-item">
+                    <h3>AI/APIs</h3>
+                    <ul>
+                        <li>Groq API (Llama 3.3 70B)</li>
+                        <li>Google Books API</li>
+                    </ul>
+                </div>
+                <div class="tech-item">
+                    <h3>Infrastructure</h3>
+                    <ul>
+                        <li>Docker</li>
+                        <li>WSL (development)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-architecture">
+            <h1>Architecture</h1>
+            <pre><code>
+┌─────────────────┐     ┌─────────────────┐
+│   React App     │────▶│   Flask API     │
+│   (Vite)        │◀────│   :5174         │
+└─────────────────┘     └────────┬────────┘
+                                 │
+                    ┌────────────┼────────────┐
+                    ▼            ▼            ▼
+              ┌──────────┐ ┌──────────┐ ┌──────────┐
+              │PostgreSQL│ │ Groq API │ │ Google   │
+              │  booklib │ │ Llama 3.3│ │ Books API│
+              └──────────┘ └──────────┘ └──────────┘  
+            </code></pre>
+        </section>
+
+        <section class="project-challanges">
+            <h2>Challenges</h2>
+            
+            <div class="challenge">
+                <h3>Inconsistent LLM Output</h3>
+                <p>The LLM would sometimes return verbose explanations instead of structured data. Solved by tightening the system prompt, adding examples, and implementing robust parsing that extracts data regardless of format variations.</p>
+            </div>
+            
+            <div class="challenge">
+                <h3>Series Consistency</h3>
+                <p>Books in the same series (e.g., Dungeon Crawler Carl) were getting classified into different genres. Implemented a series cache that applies the first book's classification to subsequent entries.</p>
+            </div>
+            
+            <div class="challenge">
+                <h3>Manga Classification</h3>
+                <p>Manga was being classified by story content (Fantasy, Action) rather than format. Added a format override in the CSV that bypasses the LLM for known formats.</p>
+            </div>
+        </section>
+
+        <section class="project-learnings">
+            <h2>What I learned</h1>
+            <ul>
+                <li>LLM prompt engineering for structured output</li>
+                <li>Rate limiting and batch processing strategies</li>
+                <li>Integrating multiple external APIs in a single pipeline</li>
+                <li>PostgreSQL schema design and migrations</li>
+                <li>Full-stack React + Flask development</li>
+            </ul>
+        </section>
+
+        <section class="project-future">
+            <h2>Future Improvements</h2>
+            <ul>
+                <li>Add book cover images, taken personally or by Google Books API</li>
+                <li>Adding currently reading statistic</li>
+                <li>Personal rating system</li>
+                <li>Enhancing the UI/UX for better usability</li>
+            </ul>
+        </section>
+
+    </article>
+
+    <footer>
+        <p><a href="../index.html">Back to Portfolio</a></p>
+    </footer>
+</body>
+</html>
